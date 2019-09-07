@@ -21,4 +21,17 @@ for i in range(2000,3001):
                 print(i,end=" ")
                 k+=1
                 if(k%18==0):
-                        print("\r")
+                        print("\b"+"\r")
+print("\n")
+
+# 方法三：从2000依次+4，检查输出
+k=0
+i=2000
+while i<3001:
+    if(i%400==0)or(i%100!=0):
+        print(i,end=" ")
+        k+=1
+    i+=4
+    if(k%18==0):
+        print("\b"+"\r")
+print("\n")
