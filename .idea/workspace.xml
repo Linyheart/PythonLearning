@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28b6c5e2-3423-4bee-a097-1c68d9847b0b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/R_User_Library.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Python.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Python.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WK01homeworkZhouZhendong/p61_5.py" beforeDir="false" afterPath="$PROJECT_DIR$/WK01homeworkZhouZhendong/p61_5.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WK01homeworkZhouZhendong/p61_8.py" beforeDir="false" afterPath="$PROJECT_DIR$/WK01homeworkZhouZhendong/p61_8.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -75,7 +71,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.p61_5">
+  <component name="RunManager" selected="Python.p61_8">
     <configuration name="1" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Python" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -164,8 +160,31 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="p61_8" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Python" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/WK01homeworkZhouZhendong" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/WK01homeworkZhouZhendong/p61_8.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.p61_8" />
         <item itemvalue="Python.p61_5" />
         <item itemvalue="Python.p40_5" />
         <item itemvalue="Python.p40_3" />
@@ -186,7 +205,7 @@
       <workItem from="1567728652337" duration="9085000" />
       <workItem from="1567816267864" duration="56000" />
       <workItem from="1567816422005" duration="444000" />
-      <workItem from="1567816879358" duration="2120000" />
+      <workItem from="1567816879358" duration="5463000" />
     </task>
     <servers />
   </component>
@@ -219,6 +238,7 @@
     <SUITE FILE_PATH="coverage/PythonLearning$p40_3.coverage" NAME="p40_3 Coverage Results" MODIFIED="1567816623427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/WK01homeworkZhouZhendong" />
     <SUITE FILE_PATH="coverage/PythonLearning$p61_5.coverage" NAME="p61_5 Coverage Results" MODIFIED="1567818651670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/WK01homeworkZhouZhendong" />
     <SUITE FILE_PATH="coverage/PythonLearning$p40_5.coverage" NAME="p40_5 Coverage Results" MODIFIED="1567816646522" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/WK01homeworkZhouZhendong" />
+    <SUITE FILE_PATH="coverage/PythonLearning$p61_8.coverage" NAME="p61_8 Coverage Results" MODIFIED="1567830732444" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/WK01homeworkZhouZhendong" />
   </component>
   <component name="masterDetails">
     <states>
