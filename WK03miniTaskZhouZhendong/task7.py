@@ -1,0 +1,11 @@
+# 7.演示range()的功能
+print("Python range() 函数可创建一个整数列表，一般用在 for 循环中。")
+print("函数的语法为：range(start, stop[, step]) \n其中：\nstart: \t计数从 start 开始。默认是从 0 开始。例如range（5）等价于range（0, 5）")
+print("stop: \t计数到 stop 结束，但不包括 stop。例如：range（0, 5） 是[0, 1, 2, 3, 4]没有5")
+print("step：\t步长，默认为1。例如：range（0, 5） 等价于 range(0, 5, 1)")
+print("如 range(5) = "+str(list(range(5))))
+print("如 range(1, 5) = "+str(list(range(1, 5))))
+print("如 range(0, 10, 2) = "+str(list(range(0, 10, 2)))+"    # 步长为2")
+print("如 range(0, -5, -1) = "+str(list(range(0, -5, -1)))+"    # 步长为-1")
+print("如 range(0) = "+str(list(range(0))))
+print("如 range(1, 0) = "+str(list(range(1, 0)))+"    # stop小于start且没有设置步长")
