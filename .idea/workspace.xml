@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28b6c5e2-3423-4bee-a097-1c68d9847b0b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/WK03miniTaskZhouZhendong/description.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WK01homeworkZhouZhendong/p61_5.py" beforeDir="false" afterPath="$PROJECT_DIR$/WK01homeworkZhouZhendong/p61_5.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WK01homeworkZhouZhendong/p61_8.py" beforeDir="false" afterPath="$PROJECT_DIR$/WK01homeworkZhouZhendong/p61_8.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -207,7 +206,10 @@
       <workItem from="1567816267864" duration="56000" />
       <workItem from="1567816422005" duration="444000" />
       <workItem from="1567816879358" duration="8880000" />
-      <workItem from="1567877862188" duration="5279000" />
+      <workItem from="1567877862188" duration="5519000" />
+      <workItem from="1567912850254" duration="632000" />
+      <workItem from="1567994584779" duration="647000" />
+      <workItem from="1568859467506" duration="833000" />
     </task>
     <servers />
   </component>
