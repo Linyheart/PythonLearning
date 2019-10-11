@@ -1,0 +1,10 @@
+BOOK1, ZHANG, 2000
+Moon, Lee, 2009
+NOOK, ZZZ, 2008
+Thinking in C++, Bruce, 2006
+Thinking in Java, Bruce, 2005
+Thinking in Java, Bruce, 2019
+Thinking in Java2, Bruce, 2019
+Thinking in Java2019, Bruce, 2019
+Thinking in Java3, Bruce, 2019
+Thinking in Python, Bruce, 2015
