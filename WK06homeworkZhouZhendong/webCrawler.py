@@ -30,7 +30,7 @@ def get_from_html(url):
     for i in range(0, len(book_info_unique)):
         for j in range(0, len(book_info_unique[i])):
             if j != len(book_info_unique[i]) - 1:
-                log_lines.append(book_info_unique[i][j].string + ", ")
+                log_lines.append(str(book_info_unique[i][j].string) + ", ")
             else:
                 log_lines.append(book_info_unique[i][j].string)
         log_lines.append("\n")
