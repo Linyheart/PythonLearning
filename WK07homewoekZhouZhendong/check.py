@@ -28,7 +28,10 @@ def check_url(str_url):
         print(False)
 
 
-def main():
+def check():
     check_phone_number(input("请输入中国电话号码："))
     check_zip_code(input("请输入中国邮政编码："))
     check_url(input("请输入网站网址："))
+
+
+check()
