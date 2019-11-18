@@ -1,10 +1,4 @@
-"""
-photolog.py
-===========
-This is a simple example app for Flask-Uploads. It uses Flask-CouchDB as well,
-because I like CouchDB. It's a basic photolog app that lets you submit blog
-posts that are photos.
-"""
+
 import datetime
 import uuid
 from flask import (Flask, request, url_for, redirect, render_template, flash,
