@@ -5,6 +5,19 @@
     <title>注册</title>
 </head>
 <body>
-{{ data }}
+    <h1>注册账户</h1>
+    <form action="http://localhost:5000/index.html" method="POST">
+        您的用户名：
+        <label>
+            <input type="text" name="username">
+        </label><br>
+        您的密码：
+        <label>
+            <input type="password" name="password">
+        </label>
+            <input type="submit" value="登录">
+        <br>
+        <a href="http://localhost:5000/signup.html">没有账户？点此注册...</a>
+    </form>
 </body>
 </html>
