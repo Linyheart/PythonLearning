@@ -24,9 +24,9 @@
           <td style="vertical-align: middle !important" >{{ file.file_mime_type }}</td>
           <td  style="vertical-align: middle !important" class="text-center">{{ file.file_size }}</td>
           <td  style="vertical-align: middle !important" class="text-center">
-              <a href={{ files_path[loop.index0] }}><button class="btn btn-info">打开</button></a>
-              <a><button class="btn btn-info">下载</button></a>
-              <a><button class="btn btn-danger">删除</button></a>
+              <a href={{ files_read_path[loop.index0] }}><button class="btn btn-info">打开</button></a>
+              <a href={{ files_download_path[loop.index0] }}><button class="btn btn-info">下载</button></a>
+              <a href={{ files_delete_path[loop.index0] }}><button class="btn btn-danger">删除</button></a>
           </td>
         </tr>
       {% endfor %}

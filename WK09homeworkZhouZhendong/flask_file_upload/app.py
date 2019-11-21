@@ -1,11 +1,12 @@
 import datetime
 import os
 
+from sqlalchemy import and_
 from werkzeug.security import generate_password_hash, check_password_hash
-from werkzeug.utils import secure_filename
 
 import config
-from flask import Flask, url_for, redirect, render_template, request, flash, session, Response
+from flask import Flask, url_for, redirect, render_template, request, flash, session, \
+    send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -36,6 +37,14 @@ class Files(db.Model):
     upload_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now())
     user_id = db.Column(db.Integer, db.ForeignKey('users_info.id'), nullable=False)
     user = db.relationship('Users', backref=db.backref('Files', order_by=upload_time.desc()))
+
+    def name_replace_blank(self):
+        self.filename = self.filename.replace(' ', '__blank__')
+        return self.filename
+
+    def name_to_blank(self):
+        self.filename = self.filename.replace('__blank__', ' ')
+        return self.filename
 
 
 class Mime_types(db.Model):
@@ -182,6 +191,7 @@ def upload():
             print(upload_path)
             if not os.path.exists(upload_path):
                 os.makedirs(upload_path)
+            file.filename = file.filename.replace(' ', '__blank__')
             file_path = os.path.join(upload_path, file.filename)
             file.save(file_path)
             if request.form.get('file_description'):
@@ -212,6 +222,7 @@ def upload():
                 else:
                     check_new_file = False
                 if check_new_file:
+                    # new_file.name_replace_blank()
                     db.session.add(new_file)
                     db.session.commit()
                     print(check_new_file)
@@ -232,11 +243,19 @@ def files():
         user = Users.query.filter(Users.username == session['username']).first()
         files = Files.query.filter(Files.user_id == user.id).all()
         if len(files) == 0:
-            flash('您没有上传过文件！')
-        files_path = []
+            flash('没有文件，请上传！')
+        files_read_path = []
+        files_download_path = []
+        files_delete_path = []
         for file in files:
-            files_path.append("../_upload/" + user.username + '/' + file.filename)
-        print(files_path)
+            files_read_path.append("/read_file/?filename=/_upload/" + user.username + '/' + file.filename)
+        for file in files:
+            files_download_path.append("/download_file/?filename=/_upload/" + user.username + '/' + file.filename)
+        for file in files:
+            files_delete_path.append("/delete_file/?filename=/_upload/" + user.username + '/' + file.filename)
+        for file in files:
+            file.filename = file.filename.replace('__blank__', ' ')
+            file.file_description = file.file_description.replace('__blank__', ' ')
         for file in files:
             if file.file_size > 1024 * 1024 * 1024:
                 file.file_size = str(round(file.file_size / (1024 * 1024 * 1024), 2)) + 'GB'
@@ -244,7 +263,18 @@ def files():
                 file.file_size = str(round(file.file_size / (1024 * 1024), 1)) + 'MB'
             elif file.file_size > 1024:
                 file.file_size = str(round(file.file_size / 1024)) + 'KB'
-        return render_template('files.html', files=files, i=1, files_path=files_path)
+        return render_template('files.html', files=files, i=1, files_read_path=files_read_path,
+                               files_download_path=files_download_path, files_delete_path=files_delete_path)
+
+
+@app.route('/read_file/', methods=['GET', 'POST'])
+def read_file():
+    if request.method == 'GET':
+        full_filename = request.args.get('filename')
+        full_filename_list = full_filename.split('/')
+        filename = full_filename_list[-1]
+        file_path = os.path.join(app.root_path, '_upload', session['username'])
+    return send_from_directory(file_path, filename=filename, as_attachment=False)
 
 
 @app.route('/download_file/', methods=['GET', 'POST'])
@@ -253,20 +283,27 @@ def download_file():
         full_filename = request.args.get('filename')
         full_filename_list = full_filename.split('/')
         filename = full_filename_list[-1]
-        filepath = full_filename.replace('/%s' % filename, '')
+        file_path = os.path.join(app.root_path, '_upload', session['username'])
+    return send_from_directory(file_path, filename=filename, as_attachment=True)
 
-        def send_file():
-            store_path = full_filename
-            with open(store_path, 'rb') as targetfile:
-                while 1:
-                    data = targetfile.read(20 * 1024 * 1024)  # 每次读取20M
-                    if not data:
-                        break
-                    yield data
 
-        response = Response(send_file(), content_type='application/octet-stream')
-        response.headers["Content-disposition"] = 'attachment; filename=%s' % filename  # 如果不加上这行代码，导致下图的问题
-        return response
+@app.route('/delete_file/', methods=['GET', 'POST'])
+def delete_file():
+    if request.method == 'GET':
+        full_filename = request.args.get('filename')
+        full_filename_list = full_filename.split('/')
+        filename = full_filename_list[-1]
+        delete_file_user = Users.query.filter(Users.username == session['username']).first()
+        print(delete_file_user.id)
+        will_delete_file = Files.query.filter(and_(Files.filename == filename), (Files.user_id == delete_file_user.id)).first()
+        print(will_delete_file.user_id)
+        db.session.delete(will_delete_file)
+        db.session.commit()
+        will_delete_file_path = os.path.join(app.root_path, '_upload', session['username'], filename)
+        print(app.root_path)
+        print(will_delete_file_path)
+        os.remove(will_delete_file_path)
+    return redirect(url_for('files'))
 
 
 @app.context_processor
