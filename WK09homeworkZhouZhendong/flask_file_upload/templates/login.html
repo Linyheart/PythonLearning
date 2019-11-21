@@ -18,7 +18,9 @@
       <input type="password" class="form-control" placeholder="请输入密码" aria-describedby="sizing-addon1" name="password1">
     </div>
     <div class="register-button">
-        <button type="submit" class="btn btn-primary btn-lg btn-block">登录</button>
+        <button type="submit" style="margin-bottom: 16px" class="btn btn-info btn-lg btn-block">登录</button>
+        <a href="{{ url_for('register') }}"><input type="button" value="注册" style="margin-top: 16px" class="btn btn-info btn-lg btn-block"></a>
     </div>
+
 </form>
 {% endblock %}

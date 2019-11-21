@@ -1,13 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
-    {% extends 'base.html' %}
-    {% block body_part %}
-    <p>{{ login_message }}</p>
-    {% endblock %}
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block static_files %}
+<link rel="stylesheet" href="{{ url_for('static',filename='register_login.css') }}"/>
+{% endblock %}
+
+{% block page_name %}主页{% endblock %}
+
+{% block files_and_upload %}
+    <div style="margin-top: 100px" class="container">
+        <div class="nav flex-column justify-content-center bg-light text-center text-success" style="height:400px;">
+            <div  style="color: #777777; font-size: 100px" class="text-center">
+            {{ username }}
+            </div>
+            <br>
+            <div  style="color: #777777; font-size: 80px" class="text-center">
+            欢迎回来
+            </div>
+        </div>
+    </div>
+    <div style="text-align: center; margin-bottom: 100px">
+        <a  href="{{ url_for('files') }}"><button style="font-size: 20px; width: 170px; margin: 6px" class="btn btn-lg btn-info">查看我的文件</button></a>
+        <a  href="{{ url_for('upload') }}"><button style="font-size: 20px; width: 170px; margin: 6px" class="btn btn-lg btn-info">上传文件</button></a>
+    </div>
+{% endblock %}

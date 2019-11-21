@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block page_name %}我的文件{% endblock %}
+
+{% block files_and_upload %}
+    <table style="margin-top: -150px; border-left: 20px; border-right: 20px" class="table table-hover">
+      <caption><h1 style="margin-left: 30px">我的文件</h1></caption>
+      <thead>
+        <tr>
+          <th class="text-center">序号</th>
+          <th>名称</th>
+          <th>描述</th>
+          <th>MIME类型</th>
+          <th class="text-center">大小</th>
+          <th class="text-center">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for file in files %}
+        <tr>
+          <td style="vertical-align: middle !important" class="text-center">{{ loop.index }}</td>
+          <td style="vertical-align: middle !important" >{{ file.filename }}</td>
+          <td style="vertical-align: middle !important" >{{ file.file_description }}</td>
+          <td style="vertical-align: middle !important" >{{ file.file_mime_type }}</td>
+          <td  style="vertical-align: middle !important" class="text-center">{{ file.file_size }}</td>
+          <td  style="vertical-align: middle !important" class="text-center">
+              <a href={{ files_path[loop.index0] }}><button class="btn btn-info">打开</button></a>
+              <a><button class="btn btn-info">下载</button></a>
+              <a><button class="btn btn-danger">删除</button></a>
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}

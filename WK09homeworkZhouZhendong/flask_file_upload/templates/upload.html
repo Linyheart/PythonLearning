@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block page_name %}上传文件{% endblock %}
+
+{% block files_and_upload %}
+    <div style="text-align: center">
+        <form action="" method="post" enctype="multipart/form-data">
+            <input style="margin-left: 533px; margin-bottom: 10px" class="btn btn-lg btn-info" type="file" name="file">
+            <input style="margin-left: 533px; margin-bottom: 10px; width: 375px" type="text" class="text-center form-control" placeholder="请输入文件描述，留空则默认为文件名" aria-describedby="sizing-addon1" name="file_description">
+            <input style="width: 375px; margin-bottom: 10px" class="btn btn-lg btn-info" type="submit" value="上传">
+        </form>
+    </div>
+{% endblock %}
