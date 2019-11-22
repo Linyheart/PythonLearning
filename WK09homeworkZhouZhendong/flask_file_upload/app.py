@@ -1,9 +1,7 @@
 import datetime
 import os
-
 from sqlalchemy import and_
 from werkzeug.security import generate_password_hash, check_password_hash
-
 import config
 from flask import Flask, url_for, redirect, render_template, request, flash, session, \
     send_from_directory
@@ -129,7 +127,6 @@ def upload():
             file = request.files['file']    # 获取文件上传请求
             base_path = os.path.abspath(os.path.dirname(__file__))  # 本文件的绝对路径
             upload_path = os.path.join(base_path, '_upload', session['username'])   # 上传的绝对路径
-            print(upload_path)
             if not os.path.exists(upload_path):     # 检查上传路径是否存在，不存在则新建路径
                 os.makedirs(upload_path)
             file.filename = file.filename.replace(' ', '__blank__')     # 将文件名中的空格进行替换防止后续处理出错
@@ -139,24 +136,19 @@ def upload():
                 file_description = request.form.get('file_description')
             else:
                 file_description = file.filename
-            print(file_description)
             file_type = file.filename.split(".")[1]     # 根据文件名称获取文件扩展名
-            print(file_type)
             mime_type = Mime_types.query.filter(Mime_types.name == file_type).first()   # 根据文件扩展名在数据库中获取MIME类型
             if not mime_type:   # 若数据库中MIME类型不包含上传文件的类型，则返回通知并删除已上传的文件，跳转到上传界面
                 flash('不支持的文件类型！')
                 os.remove(file_path)
                 return render_template('upload.html')
             else:
-                print(mime_type.template)
                 file_size = os.path.getsize(file_path)  # 获取文件大小
                 user = Users.query.filter(Users.username == session['username']).first()    # 获取当前用户的模型用于获取文件对应的用户ID
                 new_file = Files(filename=file.filename, file_description=file_description,
                                  file_mime_type=mime_type.template, file_size=file_size, user_id=user.id)   # 新建文件模型
                 check_new_file_name = Files.query.filter(Files.filename == new_file.filename).first()       # 查找是否有同名文件
                 check_new_file_user_id = Files.query.filter(Files.user_id == new_file.user_id).first()
-                print(check_new_file_user_id)
-                print(check_new_file_name)
                 if check_new_file_name is None or check_new_file_user_id is None:   # 判断同一用户是否上传过同名文件
                     check_new_file = True
                 else:
@@ -164,11 +156,9 @@ def upload():
                 if check_new_file:
                     db.session.add(new_file)    # 将文件模型添加到session队列
                     db.session.commit()
-                    print(check_new_file)
                     flash("文件上传成功！")
                 else:
                     flash('文件已存在！')
-                    print(check_new_file)
                     return render_template('upload.html')   # 若文件已存在则回到上传界面
         return render_template('upload.html')   # 上传成功，回到上传界面
 
@@ -182,8 +172,8 @@ def files():
         user = Users.query.filter(Users.username == session['username']).first()
         files = Files.query.filter(Files.user_id == user.id).all()
         if len(files) == 0:
-            flash('没有文件，请上传！')
-        files_read_path = []
+            flash('没有文件，请上传！')      # 若用户未上传文件则会提示
+        files_read_path = []    # 文件的在线预览、下载和删除链接的数组
         files_download_path = []
         files_delete_path = []
         for file in files:
@@ -192,10 +182,10 @@ def files():
             files_download_path.append("/download_file/?filename=/_upload/" + user.username + '/' + file.filename)
         for file in files:
             files_delete_path.append("/delete_file/?filename=/_upload/" + user.username + '/' + file.filename)
-        for file in files:
+        for file in files:      # 将文件名和描述中的'__blank__'替换回空格
             file.filename = file.filename.replace('__blank__', ' ')
             file.file_description = file.file_description.replace('__blank__', ' ')
-        for file in files:
+        for file in files:      # 将以字节为单位的大小转换为KB、MB和GB，且KB保留到整数，MB保留一位小数，GB保留两位小数
             if file.file_size > 1024 * 1024 * 1024:
                 file.file_size = str(round(file.file_size / (1024 * 1024 * 1024), 2)) + 'GB'
             elif file.file_size > 1024 * 1024:
@@ -206,7 +196,7 @@ def files():
                                files_download_path=files_download_path, files_delete_path=files_delete_path)
 
 
-@app.route('/read_file/', methods=['GET', 'POST'])
+@app.route('/read_file/', methods=['GET', 'POST'])      # 预览文件的视图
 def read_file():
     if request.method == 'GET':
         full_filename = request.args.get('filename')
@@ -216,7 +206,7 @@ def read_file():
     return send_from_directory(file_path, filename=filename, as_attachment=False)
 
 
-@app.route('/download_file/', methods=['GET', 'POST'])
+@app.route('/download_file/', methods=['GET', 'POST'])      # 下载文件的视图
 def download_file():
     if request.method == 'GET':
         full_filename = request.args.get('filename')
@@ -226,38 +216,28 @@ def download_file():
     return send_from_directory(file_path, filename=filename, as_attachment=True)
 
 
-@app.route('/delete_file/', methods=['GET', 'POST'])
+@app.route('/delete_file/', methods=['GET', 'POST'])        # 删除文件的视图
 def delete_file():
     if request.method == 'GET':
         full_filename = request.args.get('filename')
         full_filename_list = full_filename.split('/')
         filename = full_filename_list[-1]
         delete_file_user = Users.query.filter(Users.username == session['username']).first()
-        print(delete_file_user.id)
         will_delete_file = Files.query.filter(and_(Files.filename == filename),
                                               (Files.user_id == delete_file_user.id)).first()
-        print(will_delete_file.user_id)
-        db.session.delete(will_delete_file)
+        db.session.delete(will_delete_file)     # 删除数据库数据
         db.session.commit()
         will_delete_file_path = os.path.join(app.root_path, '_upload', session['username'], filename)
-        print(app.root_path)
-        print(will_delete_file_path)
-        os.remove(will_delete_file_path)
+        os.remove(will_delete_file_path)    # 删除本地文件
     return redirect(url_for('files'))
 
 
 @app.context_processor
-def my_context_processor():
+def my_context_processor():     # 传递参数的函数
     user = session.get('username')
     if user:
         return {'login_user': user}
     return {}
-
-
-@app.template_filter('asc')
-def asc(i):
-    i = i + 1
-    return i
 
 
 if __name__ == '__main__':
